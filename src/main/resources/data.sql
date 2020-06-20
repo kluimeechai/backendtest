@@ -1,0 +1,1 @@
+insert into user_entity (user_id, address, approve_status, email, first_name, last_name, mobile_no, password, ref_code, role, username) values (100000, 'Bangkok', true , 'admin@backendtest.com', 'Meechai', 'Charoensak', '0825275275', '$2a$10$DvuzJKjy3molBAJntycSE.l72Prv9RjZlKIWqboOoemg37gy04226', '202006200000', 'ADMIN', 'admin');
