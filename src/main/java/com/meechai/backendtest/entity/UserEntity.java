@@ -33,6 +33,8 @@ public class UserEntity {
     private String role;
     private String refCode;
     private Boolean approveStatus;
+    private Integer salary;
+    private String memberType;
 
     public UserEntity(RegisterRequest registerRequest) {
         this.firstName = registerRequest.getFirstName();
@@ -47,5 +49,6 @@ public class UserEntity {
         Random random = new Random();
         this.refCode = new SimpleDateFormat("yyyyMMdd").format(new Date()) +
                 String.format("%04d", random.nextInt(10000));
+        this.salary = registerRequest.getSalary();
     }
 }

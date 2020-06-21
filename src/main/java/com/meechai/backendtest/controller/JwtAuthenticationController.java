@@ -50,16 +50,6 @@ public class JwtAuthenticationController {
         }
     }
 
-    @PostMapping("/register")
-    private ResponseEntity<?> saveUser(@RequestBody RegisterRequest user) throws Exception{
-        return ResponseEntity.ok(userDetailsService.save(user));
-    }
-
-    @GetMapping("/users")
-    private  ResponseEntity<?> getAllUsers(){
-
-        return ResponseEntity.ok(userDetailsService.getAllUser());
-    }
 
 
 }

@@ -24,41 +24,19 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<UserEntity> user = userRepository.findUserByUsername(username);
+        UserEntity user = userRepository.findFirstByUsername(username);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.get().getRole()));
-        if (user.isPresent()) {
-            return new User(user.get().getUsername(), user.get().getPassword(),
+        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
+        if (user != null) {
+            return new User(user.getUsername(), user.getPassword(),
                     grantedAuthorities);
         } else {
             throw new UsernameNotFoundException("UserEntity not found with username: " + username);
         }
     }
-
-    public UserEntity save(RegisterRequest user){
-        UserEntity newUserEntity = new UserEntity(user);
-        //newUserEntity.setUsername(user.getUsername());
-        newUserEntity.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return userRepository.save(newUserEntity);
-    }
-    public List<UserEntity> getAllUser(){
-        return userRepository.findAll();
-    }
-
-    public UserEntity approveUserStatus(long id){
-        UserEntity newUserEntity = new UserEntity();
-        newUserEntity = userRepository.findByUserId(id);
-        newUserEntity.setApproveStatus(true);
-
-        return userRepository.save(newUserEntity);
-    }
-
     public UserEntity getUserByUsername(String username){
         return userRepository.findFirstByUsername(username);
     }
